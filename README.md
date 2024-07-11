@@ -68,7 +68,7 @@ Represents a maintenance request submitted by a student.
 1. **Clone the Repository**:
     ```bash
     git clone <repository-url>
-    cd university-residence-management-system
+    cd university-management-system
     ```
 
 2. **Open the Project**:
