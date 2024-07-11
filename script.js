@@ -1,5 +1,3 @@
-// JavaScript to handle form submissions and dynamic content
-
 document.addEventListener("DOMContentLoaded", () => {
     const dormForm = document.getElementById("dormForm");
     const apartmentForm = document.getElementById("apartmentForm");
@@ -91,14 +89,84 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayResidences() {
-        residencesDiv.innerHTML = residences.map(res => `<p>${res.toString()}</p>`).join("");
+        residencesDiv.innerHTML = residences.map((res, index) => `
+            <div class="record-item">
+                ${res.toString()} 
+                <button onclick="editResidence(${index})">Edit</button> 
+                <button onclick="deleteResidence(${index})">Delete</button>
+            </div>
+        `).join("");
     }
 
     function displayStudents() {
-        studentsDiv.innerHTML = students.map(student => `<p>${student.toString()}</p>`).join("");
+        studentsDiv.innerHTML = students.map((student, index) => `
+            <div class="record-item">
+                ${student.toString()} 
+                <button onclick="editStudent(${index})">Edit</button> 
+                <button onclick="deleteStudent(${index})">Delete</button>
+            </div>
+        `).join("");
     }
 
     function displayRequests() {
-        requestsDiv.innerHTML = requests.map(req => `<p>${req.toString()}</p>`).join("");
+        requestsDiv.innerHTML = requests.map((req, index) => `
+            <div class="record-item">
+                ${req.toString()} 
+                <button onclick="editRequest(${index})">Edit</button> 
+                <button onclick="deleteRequest(${index})">Delete</button>
+            </div>
+        `).join("");
+    }
+
+    window.editResidence = function(index) {
+        const residence = residences[index];
+        const name = prompt("Edit Residence Name:", residence.name);
+        const address = prompt("Edit Address:", residence.address);
+        if (name && address) {
+            residence.name = name;
+            residence.address = address;
+            displayResidences();
+        }
+    }
+
+    window.deleteResidence = function(index) {
+        if (confirm("Are you sure you want to delete this residence?")) {
+            residences.splice(index, 1);
+            displayResidences();
+        }
+    }
+
+    window.editStudent = function(index) {
+        const student = students[index];
+        const name = prompt("Edit Student Name:", student.name);
+        const studentId = prompt("Edit Student ID:", student.studentId);
+        if (name && studentId) {
+            student.name = name;
+            student.studentId = studentId;
+            displayStudents();
+        }
+    }
+
+    window.deleteStudent = function(index) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            students.splice(index, 1);
+            displayStudents();
+        }
+    }
+
+    window.editRequest = function(index) {
+        const request = requests[index];
+        const description = prompt("Edit Description:", request.description);
+        if (description) {
+            request.description = description;
+            displayRequests();
+        }
+    }
+
+    window.deleteRequest = function(index) {
+        if (confirm("Are you sure you want to delete this request?")) {
+            requests.splice(index, 1);
+            displayRequests();
+        }
     }
 });
